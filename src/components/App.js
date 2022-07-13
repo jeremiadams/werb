@@ -19,6 +19,14 @@ function App() {
     })
   }, [])
 
+  React.useEffect(() => {
+    axios.get('http://localhost:8000/coins').then((response) => {
+      console.log(response.data)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
+
 
   React.useEffect(function() {
     const interval = setInterval(() => {

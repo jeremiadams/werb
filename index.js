@@ -25,5 +25,33 @@ app.get('/news', (req,res) => {
 })
 
 
+app.get('/coins', (req,res) => {
+
+    const options = {
+        method: 'GET',
+        url: 'https://coinranking1.p.rapidapi.com/coins',
+        params: {
+            referenceCurrencyUuid: 'yhjMzLPhuIDl',
+            timePeriod: '24h',
+            'tiers[0]': '1',
+            orderBy: 'marketCap',
+            orderDirection: 'desc',
+            limit: '50',
+            offset: '0'
+        },
+        headers: {
+            'X-RapidAPI-Key': '338db9705emsh8cf45bc515014e9p1ceb71jsnfc5e4831b76d',
+            'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+        }
+    };
+
+    axios.request(options).then((response) => {
+        res.json(response.data)
+    }).catch((error) => {
+        console.error(error)
+    });
+})
+
+
 app.listen(8000, () => console.log(`Server is running on port ${PORT}`))
 
