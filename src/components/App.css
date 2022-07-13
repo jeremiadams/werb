@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #02010a;
+    color: #fff;
+    margin: 0;
+    font-family: 'Circular', sans-serif;
+    
+}
