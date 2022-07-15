@@ -9,7 +9,7 @@ export default function NewsCard (props) {
         <div className="newscard__box">
             <a className="newscard__link" href="#">
                 <div className="newscard">
-                    <img src="https://www.boredpanda.com/blog/wp-content/uploads/2022/07/2-62d11707aacc2__700.jpg" alt="news image" className="newscard__image"/>
+                    <img src="https://cdn.vox-cdn.com/thumbor/sP9sPjh-2PfK76HRsOfHNYNQWAo=/0x285:4048x2404/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23761862/1235927096.jpg" alt="news image" className="newscard__image"/>
                     <div className="newscard__share">
                         <a href="https://facebook.com">
                             <span id="newscard__share-btn" className="newscard__share-btn"> 
@@ -36,7 +36,7 @@ export default function NewsCard (props) {
                 </div>
                 <div className="newscard__info">
                     <div className="newscard__logo-box"><img src={NewsLogo} className="newscard__logo"/></div>
-                    <h3 className="newscard__title">Crypto lending giant Celsius files for bankruptcyCrypto lending giant Celsius files for bankruptcyCrypto lending giant Celsius files for bankruptcyCrypto lending giant Celsius files for bankruptcyCrypto lending giant Celsius files for bankruptcy</h3>
+                    <h3 className="newscard__title">9 Companies That Hoarded Customers’ Money as Crypto Crashed</h3>
                 </div>
             </a>
             <div className="newscard__bottom">
