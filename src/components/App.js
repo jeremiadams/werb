@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css';
 import axios from 'axios'
+import NewsCard from './NewsCard'
 
 //Components
 import Navbar from './Navbar'
@@ -9,15 +10,19 @@ function App() {
 
   // const [newsData, setNewsData] = React.useState([])
   const [date, setDate] = React.useState({})
+  const [news, setNews] = React.useState([])
+  // const [topPopularNews, setTopPopularNews] = React.useState({})
+  // const [otherPopularNews, setOtherPopularNews] = React.useState([])
 
 
   React.useEffect(() => {
     axios.get('http://localhost:8000/news').then((response) => {
-      console.log(response.data)
+      setNews(response.data.articles)
     }).catch(error => {
       console.log(error)
     })
   }, [])
+
 
   React.useEffect(() => {
     axios.get('http://localhost:8000/coins').then((response) => {
@@ -58,6 +63,7 @@ function App() {
   return (
     <div>
         <Navbar date={date} />
+        <NewsCard newsCard={news[0]} />
     </div>
   );
 }

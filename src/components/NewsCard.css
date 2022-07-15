@@ -1,0 +1,247 @@
+.newscard__box {
+    width: 300px;
+    background-color: #212330;
+    border-radius: 4px;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+    transition: all .4s ease-in-out;
+}
+
+.newscard__box:hover  {
+    transform: translateY(-5px);
+}
+
+
+.newscard {
+    position: relative;
+    top: 0;
+}
+
+
+.newscard__image {
+    width: 100%;
+    object-position: center;
+    object-fit: cover;
+    border: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    position: relative;
+}
+
+.newscard__share {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 26px;
+    box-sizing: border-box;
+    opacity: 0;
+    z-index: 10;
+    /* pointer-events: none; */
+    transition: opacity .35s .2s ease-in;
+}
+
+.newscard__box:hover .newscard__share {
+    opacity: 1;
+}
+
+
+
+.newscard__share-btn {
+    width: 28px;
+    height: 28px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0 ;
+    z-index: 10;
+    transition: all .2s ease-in;
+
+}
+
+.newscard__share-btn svg {
+    width: 11px;
+    height: 11px;
+    fill: #4F575B;
+}
+
+#newscard__share-btn:hover #share-svg  {
+    fill: black
+}
+
+.newscard__link {
+    text-decoration: none;
+}
+
+.newscard__info {
+    position: absolute;
+    position: relative;
+    /* padding-bottom: 20px; */
+}
+
+.newscard__logo-box {
+    /* position: absolute;
+    top: -12px;
+    left: 15px;
+    z-index: 1; */
+    width: 55px;
+    margin-top: -25px;
+    margin-left: 15px;
+
+    
+}
+
+.newscard__logo {
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid #BDBDC1;
+    
+}
+
+
+.newscard__title {
+    max-width: 300px;
+    padding: 20px 30px 0px 30px;
+    font-size: 18px;
+    color: #BDBDC1;
+    font-weight: 400;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.6;
+}
+
+.newscard__bottom {
+    /* position: absolute;
+    height: 50px;
+    
+    */
+    height: 60px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px; 
+    border-top: 1px solid #13141C;
+    margin-top: 30px;
+    
+}
+
+.newscard__bookmark-btn {
+    width: 35px;
+    height: 35px;
+    background-color: #4D4F59;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0 ;
+    z-index: 10;
+    transition: all .2s ease-in;
+    cursor: pointer;
+}
+
+.newscard__bookmark-btn svg {
+    width: 17px;
+    height: 17px;
+    fill: #908F94;
+}
+
+.newscard__bookmark-btn:hover {
+    background-color: #908F94;
+}
+
+#newscard__share-btn:hover #bookmark-svg {
+    fill: #fff;
+}
+
+/* .newscard__caption-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.newscard__facebook-caption {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+.newscard__logo-box {
+    width: 55px;
+    margin-top: -20%;
+    margin-left: 5%;
+
+    
+}
+
+.newscard__logo {
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid #BDBDC1;
+}
+
+.newscard__title-box {
+    padding: 30px;
+    text-align: left;
+}
+
+.newscard__title {
+    font-size: 18px;
+    color: #BDBDC1;
+    font-weight: 400;
+    
+}
+
+.newscard__bottom {
+    height: 60px;
+    border-top: 1px solid #13141C;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.newscard__bottom-btn {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: none;
+    background-color: #4D4F59;
+    padding: 5px;
+    padding-top: 8px;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.newscard__bottom-btn:hover {
+    background-color: #a1a1a179;
+
+} */
+
+/* .newscard__bottom-span {
+    margin: 0 auto;
+    display: inline-block;
+    width: 10px;
+    height: 15px;
+    background-image: url(../images/bookmark.svg);
+    background-size: cover;
+    transition: all .2s;
+
+}
+
+.newscard__bottom-span:hover {
+    background-image: url(../images/bookmark-white.svg);
+} */
