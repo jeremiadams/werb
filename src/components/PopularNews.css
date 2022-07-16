@@ -1,0 +1,150 @@
+.popularnews__card {
+    width: 600px;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+    transition: all .4s;
+}
+
+.popularnews__card-link {
+    text-decoration: none;
+}
+
+.popularnews__image-box {
+    position: relative;
+    border-radius: 6px;
+}
+
+.popularnews__share {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 26px;
+    box-sizing: border-box;
+    opacity: 0;
+    z-index: 10;
+    /* pointer-events: none; */
+    transition: opacity .35s ease-in;
+}
+
+.popularnews__card:hover .popularnews__share {
+    opacity: 1;
+}
+
+
+
+.popularnews__share-btn {
+    width: 28px;
+    height: 28px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0 ;
+    z-index: 10;
+    transition: all .2s ease-in;
+
+}
+
+.popularnews__share-btn svg {
+    width: 11px;
+    height: 11px;
+    fill: #4F575B;
+}
+
+#popularnews__share-btn:hover #share-svg  {
+    fill: black
+}
+
+.popularnews__title {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 25%;
+    display: flex;
+    transition: all .4s;
+
+}
+
+.popularnews__card:hover .popularnews__title  {
+    bottom: 60px;
+}
+
+.popularnews__text-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+.popularnews__title-heading {
+    color: #fff;
+    font-size: 20px;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.popularnews__title-text {
+    color: #BDBDC1;
+}
+
+
+.popularnews__bottom {
+    position: absolute; 
+    bottom:  0px;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px; 
+    background-color: #26262681;
+    opacity: 1;
+    transform: translate(0px , 60px);
+    transition: all .4s;
+    
+    
+}
+
+/* @keyframes example {
+    from {bottom: -60px;display: none; }
+    to {bottom: 0;display: flex; }
+  } */
+
+.popularnews__card:hover .popularnews__bottom {
+    transform: translate(0px , 0px);
+    
+}
+
+.popularnews__bookmark-btn {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0 ;
+    z-index: 10;
+    transition: all .2s ease-in;
+    cursor: pointer;
+}
+
+.popularnews__bookmark-btn svg {
+    width: 17px;
+    height: 17px;
+    fill: #fff;
+}
+
+.popularnews__bookmark-btn:hover {
+    background-color: transparent
+}
+
+#popularnews__share-btn:hover #bookmark-svg {
+    fill: #ffc300;
+}

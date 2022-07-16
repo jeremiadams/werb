@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css';
 import axios from 'axios'
 import NewsCard from './NewsCard'
+import PopularNews from './PopularNews'
 
 //Components
 import Navbar from './Navbar'
@@ -63,7 +64,9 @@ function App() {
   return (
     <div>
         <Navbar date={date} />
-        <NewsCard newsCard={news[0]} />
+        {/* <NewsCard newsCard={news[0]} /> */}
+        <PopularNews />
+
     </div>
   );
 }
