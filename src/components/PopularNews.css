@@ -1,6 +1,6 @@
 .popularnews__card {
-    width: 600px;
-    height: 450px;
+    width: 100%;
+    height: 100%;
     position: relative;
     overflow: hidden;
     transition: all .4s;
@@ -62,7 +62,7 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 25%;
+    /* height: 25%; */
     display: flex;
     transition: all .4s;
 
@@ -81,7 +81,7 @@
 
 .popularnews__title-heading {
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;

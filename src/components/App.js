@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css';
 import axios from 'axios'
+import picData from './picData'
 
 //Components
 import Navbar from './Navbar'
@@ -13,6 +14,8 @@ function App() {
   // const [newsData, setNewsData] = React.useState([])
   const [date, setDate] = React.useState({})
   const [news, setNews] = React.useState([])
+  const [popularNews, setPopularNews] = React.useState([])
+  const [coins, setCoins] = React.useState([])
   // const [topPopularNews, setTopPopularNews] = React.useState({})
   // const [otherPopularNews, setOtherPopularNews] = React.useState([])
 
@@ -25,14 +28,24 @@ function App() {
     })
   }, [])
 
-
   React.useEffect(() => {
-    axios.get('http://localhost:8000/coins').then((response) => {
-      console.log(response.data)
+    axios.get('http://localhost:8000/breaking-news').then((response) => {
+      setPopularNews(response.data.articles)
     }).catch(error => {
       console.log(error)
     })
   }, [])
+
+
+  React.useEffect(() => {
+    axios.get('http://localhost:8000/coins').then((response) => {
+      setCoins(response.data.data.coins)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
+
+  //  console.log(news)
 
 
   React.useEffect(function() {
@@ -62,12 +75,104 @@ function App() {
     }, 1000);
   }, []);
 
+
+  const newsCardElements = news.map(news => 
+      {
+        
+        for (let i = 0; i < picData.length; i++) {
+          if (news.source.name === picData[i].name)
+              return <NewsCard 
+                        id={news.source.id}
+                        key={news.url}
+                        name={news.source.name}
+                        title={news.title}
+                        url={news.url}
+                        img={news.urlToImage}
+                        logo={picData[i].logo}
+                     />
+        } 
+      
+      }    
+            
+  )
+
+  // const cryptoCardElements = coins.map(coin => 
+  //       <CryptoPriceCard 
+  //         id
+  //       />
+
+
+  // )
+
   return (
-    <div>
-        <Navbar date={date} />
-        {/* <NewsCard newsCard={news[0]} /> */}
-        {/* <PopularNews /> */}
-        <CryptoPriceCard />
+    <div className="app">
+        <div className="navbar"><Navbar date={date} /></div>
+        {/* <NewsCard newsCard={news[0]} />
+        <PopularNews />
+        <CryptoPriceCard /> */}
+        <main className="main">
+
+            <section className="main__top">
+
+                <div className="main__top-left">
+
+                    {/* <PopularNews  
+                      id={popularNews[5].source.id}
+                      key={popularNews[5].url}
+                      name={popularNews[5].source.name}
+                      title={popularNews[5].title}
+                      url={popularNews[5].url}
+                      img={popularNews[5].urlToImage}
+                    /> */}
+
+                </div>
+
+                <div className="main__top-right">
+
+                  <div className="main__top-right-crypto">
+                    <CryptoPriceCard />
+                    <CryptoPriceCard />
+                    <CryptoPriceCard />
+                    <CryptoPriceCard />
+                    
+                  </div>
+                  
+                  <div className="main__top-right-popular">
+                      {/* <PopularNews  
+                        id={popularNews[6].source.id}
+                        key={popularNews[6].url}
+                        name={popularNews[6].source.name}
+                        title={popularNews[6].title}
+                        url={popularNews[6].url}
+                        img={popularNews[6].urlToImage}
+                      />
+
+                      <PopularNews  
+                        id={popularNews[10].source.id}
+                        key={popularNews[10].url}
+                        name={popularNews[10].source.name}
+                        title={popularNews[10].title}
+                        url={popularNews[10].url}
+                        img={popularNews[10].urlToImage}
+                      /> 
+                     */}
+                  </div>
+
+                </div>
+
+          </section>
+
+          <section className="main__bottom">
+
+              {newsCardElements}
+
+              
+
+          </section>
+
+        </main>
+
+        
 
     </div>
   );

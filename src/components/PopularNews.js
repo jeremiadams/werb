@@ -2,22 +2,23 @@ import React from 'react'
 import './PopularNews.css'
 
 
-export default function PopularNews() {
+export default function PopularNews(props) {
     const styles = {
-        backgroundImage: 'url(https://cdn.vox-cdn.com/thumbor/sP9sPjh-2PfK76HRsOfHNYNQWAo=/0x285:4048x2404/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23761862/1235927096.jpg)',
+        backgroundImage: `url(${props.img})`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',
-        backgroundAttachment: 'fixed',
-        margin: '0',
+        backgroundPosition: 'center top',
         padding: '0',
     }
 
     return (
         <div className="popularnews__card">
-            <a href="#" className="popularnews__card-link">
+            <a href={props.url} className="popularnews__card-link">
                 <div className="popularnews__image-box" style={styles}>
-                    <div className="popularnews__share">
+                </div>
+            </a>
+            <div className="popularnews__share">
                         <a href="https://facebook.com">
                             <span id="popularnews__share-btn" className="popularnews__share-btn"> 
                                 <svg id="share-svg" className="popularnews__facebook-caption" width="26" height="46" viewBox="0 0 26 46"  xmlns="http://www.w3.org/2000/svg">
@@ -43,17 +44,14 @@ export default function PopularNews() {
 
                     <div className="popularnews__title">
                         <div className="popularnews__text-box">
-                            <h3 className="popularnews__title-heading">9 Companies That Hoarded Customers’ Money as Crypto Crashed</h3>
-                            <p className="popularnews__title-text">mashable.com</p>
+                            <h3 className="popularnews__title-heading">{props.title}</h3>
+                            <p className="popularnews__title-text">{props.name}</p>
                         </div>
                     </div>
-
-                </div>
-            </a>
             <div className="popularnews__bottom">
                 <span id="popularnews__share-btn" className="popularnews__bookmark-btn">
                     <svg id="bookmark-svg" className="popularnews__bottom-bookmark" width="23" height="33" viewBox="0 0 23 33" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" />
+                        <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" />
                     </svg>
                 </span>
             </div>

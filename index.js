@@ -13,7 +13,19 @@ app.get('/', (req,res) => {
 })
 
 app.get('/news', (req,res) => {
-    const baseUrl = 'https://newsapi.org/v2/everything?q=crypto&from=2022-07-06&sortBy=popularity&apiKey='
+    const baseUrl = 'https://newsapi.org/v2/everything?q=ethereum&from=2022-07-15&sortBy=popularity&apiKey='
+    const newsApiKey = process.env.REACT_APP_NEWS_API_KEY
+
+
+    axios.get(`${baseUrl}${newsApiKey}`).then((response) => {
+        res.json(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+})
+
+app.get('/breaking-news', (req,res) => {
+    const baseUrl = 'https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey='
     const newsApiKey = process.env.REACT_APP_NEWS_API_KEY
 
 

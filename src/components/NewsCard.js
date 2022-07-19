@@ -1,16 +1,23 @@
 import React from 'react'
 import './NewsCard.css'
 import NewsLogo from '../images/creative-bloq.png'
+import data from './picData'
 
 export default function NewsCard (props) {
     // console.log(props)
 
     return (
         <div className="newscard__box">
-            <a className="newscard__link" href="#">
+            <a className="newscard__link" href={props.url}>
                 <div className="newscard">
-                    <img src="https://cdn.vox-cdn.com/thumbor/sP9sPjh-2PfK76HRsOfHNYNQWAo=/0x285:4048x2404/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/23761862/1235927096.jpg" alt="news image" className="newscard__image"/>
-                    <div className="newscard__share">
+                    <img src={props.img} alt="news image" className="newscard__image"/>
+                </div>
+                <div className="newscard__info">
+                    <div className="newscard__logo-box"><img src={props.logo} className="newscard__logo"/></div>
+                    <h3 className="newscard__title">{props.title}</h3>
+                </div>
+            </a>
+            <div className="newscard__share">
                         <a href="https://facebook.com">
                             <span id="newscard__share-btn" className="newscard__share-btn"> 
                                 <svg id="share-svg" className="newscard__facebook-caption" width="26" height="46" viewBox="0 0 26 46"  xmlns="http://www.w3.org/2000/svg">
@@ -33,16 +40,10 @@ export default function NewsCard (props) {
                             </span>
                         </a>
                     </div>
-                </div>
-                <div className="newscard__info">
-                    <div className="newscard__logo-box"><img src={NewsLogo} className="newscard__logo"/></div>
-                    <h3 className="newscard__title">9 Companies That Hoarded Customers’ Money as Crypto Crashed</h3>
-                </div>
-            </a>
             <div className="newscard__bottom">
                 <span id="newscard__share-btn" className="newscard__bookmark-btn">
                     <svg id="bookmark-svg" className="newscard__bottom-bookmark" width="23" height="33" viewBox="0 0 23 33" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" />
+                        <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" />
                     </svg>
                 </span>
             </div>
