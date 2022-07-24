@@ -43,33 +43,33 @@ app.get('/popular', (req,res) => {
 })
 
 
-app.get('/coins', (req,res) => {
+// app.get('/coins', (req,res) => {
 
-    const options = {
-        method: 'GET',
-        url: 'https://coinranking1.p.rapidapi.com/coins',
-        params: {
-            referenceCurrencyUuid: 'yhjMzLPhuIDl',
-            timePeriod: '24h',
-            'tiers[0]': '1',
-            orderBy: 'marketCap',
-            orderDirection: 'desc',
-            limit: '50',
-            offset: '0'
-        },
-        headers: {
-            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-            'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
-        }
-    };
+//     const options = {
+//         method: 'GET',
+//         url: 'https://coinranking1.p.rapidapi.com/coins',
+//         params: {
+//             referenceCurrencyUuid: 'yhjMzLPhuIDl',
+//             timePeriod: '24h',
+//             'tiers[0]': '1',
+//             orderBy: 'marketCap',
+//             orderDirection: 'desc',
+//             limit: '50',
+//             offset: '0'
+//         },
+//         headers: {
+//             'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+//             'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+//         }
+//     };
     
-    axios.request(options).then((response) => {
-        res.json(response.data)
-    }).catch((error) => {
-        console.error(error)
-    });
+//     axios.request(options).then((response) => {
+//         res.json(response.data)
+//     }).catch((error) => {
+//         console.error(error)
+//     });
     
-})
+// })
 
 
 app.listen(8000, () => console.log(`Server is running on port ${PORT}`))
