@@ -4,7 +4,7 @@ import './PopularNews.css'
 
 export default function PopularNews(props) {
     const styles = {
-        backgroundImage: `url(${props.img})`,
+        backgroundImage:  `linear-gradient(to right bottom, #05296248, #05296248), url(${props.img})`,
         width: '100%',
         height: '100%',
         backgroundSize: 'cover',

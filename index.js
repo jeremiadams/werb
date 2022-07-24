@@ -13,7 +13,13 @@ app.get('/', (req,res) => {
 })
 
 app.get('/news', (req,res) => {
-    const baseUrl = 'https://newsapi.org/v2/everything?q=ethereum&from=2022-07-15&sortBy=popularity&apiKey='
+    let myDate = new Date()
+    const year = myDate.getFullYear()
+    const month = myDate.getMonth() + 1
+    const day = myDate.getDate() - 3       
+    // ${year}-${month}-${day}
+
+    const baseUrl = `https://newsapi.org/v2/everything?q=heatwave&from=${year}-${month}-${day}&sortBy=popularity&apiKey=`
     const newsApiKey = process.env.REACT_APP_NEWS_API_KEY
 
 
@@ -24,7 +30,7 @@ app.get('/news', (req,res) => {
       })
 })
 
-app.get('/breaking-news', (req,res) => {
+app.get('/popular', (req,res) => {
     const baseUrl = 'https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey='
     const newsApiKey = process.env.REACT_APP_NEWS_API_KEY
 
@@ -52,16 +58,17 @@ app.get('/coins', (req,res) => {
             offset: '0'
         },
         headers: {
-            'X-RapidAPI-Key': '338db9705emsh8cf45bc515014e9p1ceb71jsnfc5e4831b76d',
+            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
             'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
         }
     };
-
+    
     axios.request(options).then((response) => {
         res.json(response.data)
     }).catch((error) => {
         console.error(error)
     });
+    
 })
 
 
