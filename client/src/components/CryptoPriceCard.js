@@ -21,7 +21,7 @@ export default function CryptoPriceCard(props) {
                 <div className="crypto__card">
                     <div className="crypto__card-left">
                         <div className="crypto__card-logo-box">
-                            <img className="crypto__card-logo" src={props.img} />
+                            <img className="crypto__card-logo" alt="Crypto Logo" src={props.img} />
                         </div>
                         <div className="crypto__card-price">
                             <h3 className="crypto__card-price-text">${numberWithCommas(Number(props.price).toFixed(2))}</h3>

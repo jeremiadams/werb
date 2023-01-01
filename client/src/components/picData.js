@@ -1,5 +1,3 @@
-import React from 'react'
-
 import TheGuardian from '../images/logos/the-guardian.png'
 import Cnet from '../images/logos/cnet.png'
 import FastCompany from '../images/logos/fast-company.png'
@@ -64,7 +62,7 @@ import ArsTechnica from '../images/logos/arstechnica.png'
 import Cnn from '../images/logos/cnn-.png'
 import Gizmodo from '../images/logos/gizmodo.png'
 
-export default [
+const picData = [
 
     {
         name: 'The Guardian',
@@ -383,8 +381,7 @@ export default [
         logo: Gizmodo
     },
 
-    
-
-    
 
 ]
+
+export default picData

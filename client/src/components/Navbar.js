@@ -4,7 +4,6 @@ import './Navbar.css'
 
 export default function Navbar(props) {
     let date = new Date();
-    let yo = date.getSeconds()
 
     return (
         <nav className="nav">

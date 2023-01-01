@@ -1,7 +1,5 @@
 import React from 'react'
 import './NewsCard.css'
-import NewsLogo from '../images/creative-bloq.png'
-import data from './picData'
 
 export default function NewsCard (props) {
     // console.log(props)
@@ -10,10 +8,10 @@ export default function NewsCard (props) {
         <div className="newscard__box">
             <a className="newscard__link" href={props.url}>
                 <div className="newscard">
-                    <img src={props.img} alt="news image" className="newscard__image"/>
+                    <img src={props.img} alt="News" className="newscard__image"/>
                 </div>
                 <div className="newscard__info">
-                    <div className="newscard__logo-box"><img src={props.logo} className="newscard__logo"/></div>
+                    <div className="newscard__logo-box"><img src={props.logo} alt="News Agency Logo" className="newscard__logo"/></div>
                     <h3 className="newscard__title">{props.title}</h3>
                 </div>
             </a>

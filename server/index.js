@@ -20,8 +20,7 @@ app.get('/news', (req,res) => {
     let myDate = new Date()
     const year = myDate.getFullYear()
     const month = myDate.getMonth() + 1
-    const day = myDate.getDate() - 3       
-    // ${year}-${month}-${day}
+    const day = myDate.getDate() - 3    
 
     const options = {
         method: 'GET',
@@ -98,13 +97,4 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
 
 
-// const express = require("express");
 
-// const PORT = process.env.PORT || 3001;
-
-
-// const app = express();
-
-// app.listen(PORT, () => {
-//   console.log(`Server listening on ${PORT}`);
-// });
