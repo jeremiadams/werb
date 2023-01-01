@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001;
 
 const app = express();
 app.use(cors())
-app.use(express.static(__dirname, '../client/build'));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 app.get('/', (req,res) => {
     res.json('hi')
@@ -24,7 +24,7 @@ app.get('/news', (req,res) => {
 
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=1df8476950f8455cb29aee0821714f48`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=672f96d96ba442f191d1cd206c6a0a31`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
@@ -43,7 +43,7 @@ app.get('/news', (req,res) => {
 app.get('/popular', (req,res) => {
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=672f96d96ba442f191d1cd206c6a0a31`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
@@ -90,7 +90,7 @@ app.get('/coins', (req,res) => {
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(__dirname, '../client/build', 'index.html');
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
   });
 
 
