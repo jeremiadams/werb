@@ -24,7 +24,7 @@ app.get('/news', (req,res) => {
 
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=672f96d96ba442f191d1cd206c6a0a31`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=1df8476950f8455cb29aee0821714f48`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
@@ -43,7 +43,7 @@ app.get('/news', (req,res) => {
 app.get('/popular', (req,res) => {
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=672f96d96ba442f191d1cd206c6a0a31`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
