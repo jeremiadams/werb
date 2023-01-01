@@ -20,7 +20,7 @@ function App() {
 
 
   React.useEffect(() => {
-    axios.get('http://localhost:8000/news').then((response) => {
+    axios.get('/news').then((response) => {
 
       const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
                                                      .sort((a, b) => a.sort - b.sort)
@@ -33,7 +33,7 @@ function App() {
 
 
   React.useEffect(() => {
-    axios.get('http://localhost:8000/popular').then((response) => {
+    axios.get('/popular').then((response) => {
       setPopularNews(response.data.articles)
     }).catch(error => {
       console.log(error)
@@ -43,7 +43,7 @@ function App() {
 
   React.useEffect(() => {
       
-          axios.get('http://localhost:8000/coins').then((response) => {
+          axios.get('/coins').then((response) => {
             setCoins(response.data.data.coins)
           }).catch(error => {
             console.log(error)
