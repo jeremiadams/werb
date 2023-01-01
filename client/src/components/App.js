@@ -52,14 +52,6 @@ function App() {
     
   }, [])
 
-  React.useEffect(() => {
-      
-    axios.get('https://cat-fact.herokuapp.com/facts').then((response) => console.log(response)).catch(error => {
-      console.log(error)
-    })
-
-
-}, [])
 
 
   React.useEffect(function() {
@@ -118,7 +110,7 @@ function App() {
   
         for (let i = 0; i < picData.length; i++) {
           if (news.source.name === picData[i].name)
-              return (<NewsCard 
+              return <NewsCard 
                         id={news?.source.id}
                         key={news?.url}
                         name={news?.source.name}
@@ -126,8 +118,9 @@ function App() {
                         url={news?.url}
                         img={news?.urlToImage}
                         logo={picData[i].logo}
-                     />)
+                     />
         } 
+        return null
       
       }    
             

@@ -24,7 +24,7 @@ app.get('/news', (req,res) => {
 
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=cryptocurrency&from=${year}-${month}-${day}&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
