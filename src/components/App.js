@@ -21,11 +21,16 @@ function App() {
 
   React.useEffect(() => {
     axios.get('http://localhost:8000/news').then((response) => {
-      setNews(response.data.articles)
+
+      const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
+                                                     .sort((a, b) => a.sort - b.sort)
+                                                     .map(({ value }) => value)
+      setNews(shuffledArticles)
     }).catch(error => {
       console.log(error)
     })
   }, [])
+
 
   React.useEffect(() => {
     axios.get('http://localhost:8000/popular').then((response) => {
@@ -47,6 +52,14 @@ function App() {
     
   }, [])
 
+  React.useEffect(() => {
+      
+    axios.get('https://cat-fact.herokuapp.com/facts').then((response) => console.log(response)).catch(error => {
+      console.log(error)
+    })
+
+
+}, [])
 
 
   React.useEffect(function() {
@@ -119,6 +132,7 @@ function App() {
       }    
             
   )
+
 
   const cryptoCardElements = coins.map(coin =>
 
