@@ -24,7 +24,7 @@ app.get('/news', (req,res) => {
 
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=1df8476950f8455cb29aee0821714f48`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
@@ -43,7 +43,7 @@ app.get('/news', (req,res) => {
 app.get('/popular', (req,res) => {
     const options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`,
+        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
         headers: {
           origin: 'newsapi.org',
           'x-requested-with': 'newsapi.org',
@@ -76,7 +76,7 @@ app.get('/coins', (req,res) => {
             offset: '0'
         },
         headers: {
-            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
+            'X-RapidAPI-Key': '33a028b672msh4d6a5eff88ddf94p1d4673jsnadaf0163ecc6',
             'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
         }
     };
