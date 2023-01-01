@@ -3,7 +3,6 @@ import Logo from '../images/web3-logo-light.png'
 import './Navbar.css'
 
 export default function Navbar(props) {
-    let date = new Date();
 
     return (
         <nav className="nav">

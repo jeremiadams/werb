@@ -63,7 +63,7 @@ function App() {
 
 
   React.useEffect(function() {
-    const interval = setInterval(() => {
+    setInterval(() => {
 
       let myDate = new Date()
 
