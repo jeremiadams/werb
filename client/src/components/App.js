@@ -12,7 +12,7 @@ import CryptoPriceCard from './CryptoPriceCard';
 function App() {
 
   const [date, setDate] = React.useState({})
-  const [news, setNews] = React.useState([])
+  // const [news, setNews] = React.useState([])
   const [popularNews, setPopularNews] = React.useState([])
   const [coins, setCoins] = React.useState([])
   const [boxShadow, setBoxShadow] = React.useState(false)
@@ -21,17 +21,17 @@ function App() {
   
 
 
-  React.useEffect(() => {
-    axios.get('/news').then((response) => {
+  // React.useEffect(() => {
+  //   axios.get('/news').then((response) => {
 
-      const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
-                                                     .sort((a, b) => a.sort - b.sort)
-                                                     .map(({ value }) => value)
-      setNews(shuffledArticles)
-    }).catch(error => {
-      console.log(error)
-    })
-  }, [])
+  //     const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
+  //                                                    .sort((a, b) => a.sort - b.sort)
+  //                                                    .map(({ value }) => value)
+  //     setNews(shuffledArticles)
+  //   }).catch(error => {
+  //     console.log(error)
+  //   })
+  // }, [])
 
 
   React.useEffect(() => {
@@ -119,26 +119,26 @@ function App() {
 
 
 
-  const newsCardElements = news.map(news => 
-      {
+  // const newsCardElements = news.map(news => 
+  //     {
   
-        for (let i = 0; i < picData.length; i++) {
-          if (news.source.name === picData[i].name)
-              return <NewsCard 
-                        id={news?.source.id}
-                        key={news?.url}
-                        name={news?.source.name}
-                        title={news?.title}
-                        url={news?.url}
-                        img={news?.urlToImage}
-                        logo={picData[i].logo}
-                     />
-        } 
-        return null
+  //       for (let i = 0; i < picData.length; i++) {
+  //         if (news.source.name === picData[i].name)
+  //             return <NewsCard 
+  //                       id={news?.source.id}
+  //                       key={news?.url}
+  //                       name={news?.source.name}
+  //                       title={news?.title}
+  //                       url={news?.url}
+  //                       img={news?.urlToImage}
+  //                       logo={picData[i].logo}
+  //                    />
+  //       } 
+  //       return null
       
-      }    
+  //     }    
             
-  )
+  // )
 
   const testCardElements = test.map(news => 
     {
