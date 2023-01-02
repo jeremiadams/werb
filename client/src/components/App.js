@@ -16,6 +16,8 @@ function App() {
   const [popularNews, setPopularNews] = React.useState([])
   const [coins, setCoins] = React.useState([])
   const [boxShadow, setBoxShadow] = React.useState(false)
+
+  const [test, setTest] = React.useState([])
   
 
 
@@ -39,21 +41,6 @@ function App() {
       console.log(error)
     })
 
-
-    // const options = {
-    //   method: 'GET',
-    //   url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
-    //   headers: {
-    //     origin: 'newsapi.org',
-    //     'x-requested-with': 'newsapi.org',
-    //   }
-    // };
-    
-    // axios.request(options).then(function (response) {
-    //   setPopularNews(response.data.articles)
-    // }).catch(function (error) {
-    //     console.error(error);
-    // });
   }, [])
 
 
@@ -67,6 +54,17 @@ function App() {
       
     
   }, [])
+
+  React.useEffect(() => {
+      
+    axios.get('/test').then((response) => {
+      setTest(response.data.articles)
+    }).catch(error => {
+      console.log(error)
+    })
+
+
+}, [])
 
 
 
@@ -141,6 +139,24 @@ function App() {
       }    
             
   )
+
+  const testCardElements = test.map(news => 
+    {
+      return <NewsCard 
+                id={news?._id}
+                key={news?.link}
+                name={news?.title}
+                title={news?.title}
+                url={news?.link}
+                img={news?.media}
+                // logo={picData[i].logo}
+             />
+
+      
+    
+    }    
+          
+)
 
 
   const cryptoCardElements = coins.map(coin =>
@@ -232,8 +248,8 @@ function App() {
 
               <h2 className="main__bottom-heading">Latest News</h2>
 
-              {newsCardElements}
-
+              {/* {newsCardElements} */}
+              {testCardElements}
               
 
           </section>

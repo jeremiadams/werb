@@ -51,14 +51,12 @@ app.get('/popular', (req,res) => {
       };
       
     axios.request(options).then(function (response) {
-        res.header("Access-Control-Allow-Origin", `http://localhost:${PORT}`)
         res.json(response.data)
     }).catch(function (error) {
         console.error(error);
     });
 
 })
-
 
 
 
@@ -87,6 +85,26 @@ app.get('/coins', (req,res) => {
     }).catch((error) => {
         console.error(error)
     });
+    
+})
+
+
+app.get('/test', (req,res) => {
+
+    var options = {
+        method: 'GET',
+        url: 'https://api.newscatcherapi.com/v2/search',
+        params: {q: 'ukraine', lang: 'en', sort_by: 'relevancy', page: '1'},
+        headers: {
+          'x-api-key': 'xwnu2O6txLBSODMfhY4R5YtvTE41YkctAf-FW-YSwFs'
+        }
+      };
+      
+      axios.request(options).then(function (response) {
+        res.json(response.data);
+      }).catch(function (error) {
+          console.error(error);
+      });
     
 })
 
