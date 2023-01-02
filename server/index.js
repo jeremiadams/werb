@@ -51,6 +51,7 @@ app.get('/popular', (req,res) => {
       };
       
     axios.request(options).then(function (response) {
+        res.header("Access-Control-Allow-Origin", `http://localhost:${PORT}`)
         res.json(response.data)
     }).catch(function (error) {
         console.error(error);
