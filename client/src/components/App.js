@@ -33,27 +33,27 @@ function App() {
 
 
   React.useEffect(() => {
-    // axios.get('/popular').then((response) => {
-    //   setPopularNews(response.data.articles)
-    // }).catch(error => {
-    //   console.log(error)
-    // })
-
-
-    const options = {
-      method: 'GET',
-      url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
-      headers: {
-        origin: 'newsapi.org',
-        'x-requested-with': 'newsapi.org',
-      }
-    };
-    
-    axios.request(options).then(function (response) {
+    axios.get('/popular').then((response) => {
       setPopularNews(response.data.articles)
-    }).catch(function (error) {
-        console.error(error);
-    });
+    }).catch(error => {
+      console.log(error)
+    })
+
+
+    // const options = {
+    //   method: 'GET',
+    //   url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
+    //   headers: {
+    //     origin: 'newsapi.org',
+    //     'x-requested-with': 'newsapi.org',
+    //   }
+    // };
+    
+    // axios.request(options).then(function (response) {
+    //   setPopularNews(response.data.articles)
+    // }).catch(function (error) {
+    //     console.error(error);
+    // });
   }, [])
 
 
