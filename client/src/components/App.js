@@ -12,26 +12,24 @@ import CryptoPriceCard from './CryptoPriceCard';
 function App() {
 
   const [date, setDate] = React.useState({})
-  // const [news, setNews] = React.useState([])
+  const [news, setNews] = React.useState([])
   const [popularNews, setPopularNews] = React.useState([])
   const [coins, setCoins] = React.useState([])
   const [boxShadow, setBoxShadow] = React.useState(false)
 
-  const [test, setTest] = React.useState([])
-  
 
+  React.useEffect(() => {
+    axios.get('/news').then((response) => {
 
-  // React.useEffect(() => {
-  //   axios.get('/news').then((response) => {
+      const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
+                                                     .sort((a, b) => a.sort - b.sort)
+                                                     .map(({ value }) => value)
+      setNews(shuffledArticles)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
 
-  //     const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
-  //                                                    .sort((a, b) => a.sort - b.sort)
-  //                                                    .map(({ value }) => value)
-  //     setNews(shuffledArticles)
-  //   }).catch(error => {
-  //     console.log(error)
-  //   })
-  // }, [])
 
 
   React.useEffect(() => {
@@ -40,31 +38,30 @@ function App() {
     }).catch(error => {
       console.log(error)
     })
-
   }, [])
 
 
   React.useEffect(() => {
       
-          axios.get('/coins').then((response) => {
-            setCoins(response.data.data.coins)
-          }).catch(error => {
-            console.log(error)
-          })
+    axios.get('/coins').then((response) => {
+      setCoins(response.data.data.coins)
+    }).catch(error => {
+      console.log(error)
+    })
       
     
   }, [])
 
-  React.useEffect(() => {
+//   React.useEffect(() => {
       
-    axios.get('/test').then((response) => {
-      setTest(response.data.articles)
-    }).catch(error => {
-      console.log(error)
-    })
+//     axios.get('/test').then((response) => {
+//       setTest(response.data.articles)
+//     }).catch(error => {
+//       console.log(error)
+//     })
 
 
-}, [])
+// }, [])
 
 
 
@@ -119,44 +116,26 @@ function App() {
 
 
 
-  // const newsCardElements = news.map(news => 
-  //     {
+  const newsCardElements = news.map(news => 
+      {
   
-  //       for (let i = 0; i < picData.length; i++) {
-  //         if (news.source.name === picData[i].name)
-  //             return <NewsCard 
-  //                       id={news?.source.id}
-  //                       key={news?.url}
-  //                       name={news?.source.name}
-  //                       title={news?.title}
-  //                       url={news?.url}
-  //                       img={news?.urlToImage}
-  //                       logo={picData[i].logo}
-  //                    />
-  //       } 
-  //       return null
+        for (let i = 0; i < picData.length; i++) {
+          if (news.clean_url === picData[i].name)
+              return <NewsCard 
+                        id={news?._id}
+                        key={news?._id}
+                        name={news?.clean_url}
+                        title={news?.title}
+                        url={news?.link}
+                        img={news?.media}
+                        logo={picData[i].logo}
+                     />
+        } 
+        return null
       
-  //     }    
+      }    
             
-  // )
-
-  const testCardElements = test.map(news => 
-    {
-      return <NewsCard 
-                id={news?._id}
-                key={news?.link}
-                name={news?.title}
-                title={news?.title}
-                url={news?.link}
-                img={news?.media}
-                // logo={picData[i].logo}
-             />
-
-      
-    
-    }    
-          
-)
+  )
 
 
   const cryptoCardElements = coins.map(coin =>
@@ -202,12 +181,12 @@ function App() {
                 <div className="main__top-left">
 
                     <PopularNews  
-                      id={popularNews[4]?.source.id}
-                      key={popularNews[4]?.url}
-                      name={popularNews[4]?.source.name}
+                      id={popularNews[4]?._id}
+                      key={popularNews[4]?._id}
+                      name={popularNews[4]?.clean_url}
                       title={popularNews[4]?.title}
-                      url={popularNews[4]?.url}
-                      img={popularNews[4]?.urlToImage}
+                      url={popularNews[4]?.link}
+                      img={popularNews[4]?.media}
                     />
 
                 </div>
@@ -221,21 +200,21 @@ function App() {
                   
                   <div className="main__top-right-popular">
                       <PopularNews  
-                        id={popularNews[8]?.source.id}
-                        key={popularNews[8]?.url}
-                        name={popularNews[8]?.source.name}
+                        id={popularNews[8]?._id}
+                        key={popularNews[8]?._id}
+                        name={popularNews[8]?.clean_url}
                         title={popularNews[8]?.title}
-                        url={popularNews[8]?.url}
-                        img={popularNews[8]?.urlToImage}
+                        url={popularNews[8]?.link}
+                        img={popularNews[8]?.media}
                       />
 
                       <PopularNews  
-                        id={popularNews[6]?.source.id}
-                        key={popularNews[6]?.url}
-                        name={popularNews[6]?.source.name}
+                        id={popularNews[6]?._id}
+                        key={popularNews[6]?._id}
+                        name={popularNews[6]?.clean_url}
                         title={popularNews[6]?.title}
-                        url={popularNews[6]?.url}
-                        img={popularNews[6]?.urlToImage}
+                        url={popularNews[6]?.link}
+                        img={popularNews[6]?.media}
                       /> 
                     
                   </div>
@@ -248,8 +227,7 @@ function App() {
 
               <h2 className="main__bottom-heading">Latest News</h2>
 
-              {/* {newsCardElements} */}
-              {testCardElements}
+              {newsCardElements}
               
 
           </section>

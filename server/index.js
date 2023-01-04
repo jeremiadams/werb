@@ -16,23 +16,42 @@ app.get('/', (req,res) => {
 })
 
 
-app.get('/news', (req,res) => {
-    let myDate = new Date()
-    const year = myDate.getFullYear()
-    const month = myDate.getMonth() + 1
-    const day = myDate.getDate() - 3    
+// app.get('/news', (req,res) => {
+//     let myDate = new Date()
+//     const year = myDate.getFullYear()
+//     const month = myDate.getMonth() + 1
+//     const day = myDate.getDate() - 3    
 
-    const options = {
+//     const options = {
+//         method: 'GET',
+//         url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=1df8476950f8455cb29aee0821714f48`,
+//         headers: {
+//           origin: 'newsapi.org',
+//           'x-requested-with': 'newsapi.org',
+//         }
+//       };
+      
+//     axios.request(options).then(function (response) {
+//         res.json(response.data)
+//     }).catch(function (error) {
+//         console.error(error);
+//     });
+
+// })
+
+app.get('/news', (req,res) => {
+
+    let options = {
         method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything?q=ukraine&from=${year}-${month}-${day}&sortBy=popularity&apiKey=1df8476950f8455cb29aee0821714f48`,
+        url: 'https://api.newscatcherapi.com/v2/search',
+        params: {q: 'q=crypto', lang: 'en', sort_by: 'relevancy', page: '1'},
         headers: {
-          origin: 'newsapi.org',
-          'x-requested-with': 'newsapi.org',
+          'x-api-key': 'QEklNgSS354Q1LSng5uRRRJrs6yIwwpVt6HFiK7ZqZc'
         }
-      };
+    };
       
     axios.request(options).then(function (response) {
-        res.json(response.data)
+    res.json(response.data);
     }).catch(function (error) {
         console.error(error);
     });
@@ -40,22 +59,40 @@ app.get('/news', (req,res) => {
 })
 
 
-app.get('/popular', (req,res) => {
-    const options = {
-        method: 'GET',
-        url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
-        headers: {
-          origin: 'newsapi.org',
-          'x-requested-with': 'newsapi.org',
-        }
-      };
+// app.get('/test', (req,res) => {
+//     const options = {
+//         method: 'GET',
+//         url: `https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=1df8476950f8455cb29aee0821714f48`,
+//         headers: {
+//           origin: 'newsapi.org',
+//           'x-requested-with': 'newsapi.org',
+//         }
+//       };
       
+//     axios.request(options).then(function (response) {
+//         res.json(response.data)
+//     }).catch(function (error) {
+//         console.error(error);
+//     });
+
+// })
+
+app.get('/popular', (req,res) => {
+    let options = {
+        method: 'GET',
+        url: 'https://api.newscatcherapi.com/v2/search',
+        params: {q: 'blockchain', lang: 'en', topic: 'tech', sort_by: 'relevancy', page: '1'},
+        headers: {
+            'x-api-key': 'QEklNgSS354Q1LSng5uRRRJrs6yIwwpVt6HFiK7ZqZc'
+        }
+    };
+        
     axios.request(options).then(function (response) {
-        res.json(response.data)
+    res.json(response.data);
     }).catch(function (error) {
         console.error(error);
     });
-
+    
 })
 
 
@@ -88,25 +125,6 @@ app.get('/coins', (req,res) => {
     
 })
 
-
-app.get('/test', (req,res) => {
-
-    var options = {
-        method: 'GET',
-        url: 'https://api.newscatcherapi.com/v2/search',
-        params: {q: 'ukraine', lang: 'en', sort_by: 'relevancy', page: '1'},
-        headers: {
-          'x-api-key': 'xwnu2O6txLBSODMfhY4R5YtvTE41YkctAf-FW-YSwFs'
-        }
-      };
-      
-      axios.request(options).then(function (response) {
-        res.json(response.data);
-      }).catch(function (error) {
-          console.error(error);
-      });
-    
-})
 
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'))
