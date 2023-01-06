@@ -2,7 +2,6 @@ import React from 'react'
 import './NewsCard.css'
 
 export default function NewsCard (props) {
-    // console.log(props)
 
     return (
         <div className="newscard__box">
@@ -39,10 +38,14 @@ export default function NewsCard (props) {
                         </a>
                     </div>
             <div className="newscard__bottom">
-                <span id="newscard__share-btn" className="newscard__bookmark-btn">
+                <span onClick={() => props.bookmark(props.id)} id="newscard__share-btn" className="newscard__bookmark-btn">
+                    {props.isBookmarked ? 
                     <svg id="bookmark-svg" className="newscard__bottom-bookmark" width="23" height="33" viewBox="0 0 23 33" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" />
-                    </svg>
+                        <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" fill="#ffc300"/>
+                    </svg> :
+                    <svg id="bookmark-svg" className="newscard__bottom-bookmark" width="23" height="33" viewBox="0 0 23 33" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" fill="#908F94"/>
+                    </svg>}
                 </span>
             </div>
         </div>

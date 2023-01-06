@@ -46,7 +46,7 @@ app.get('/news', (req,res) => {
         url: 'https://api.newscatcherapi.com/v2/search',
         params: {q: 'q=crypto', lang: 'en', sort_by: 'relevancy', page: '1'},
         headers: {
-          'x-api-key': 'QEklNgSS354Q1LSng5uRRRJrs6yIwwpVt6HFiK7ZqZc'
+          'x-api-key': '4SxNp_InuXrQUvzU7TgMAhCdkMGuX7HpFiMOLbeAx_Q'
         }
     };
       
@@ -83,7 +83,7 @@ app.get('/popular', (req,res) => {
         url: 'https://api.newscatcherapi.com/v2/search',
         params: {q: 'blockchain', lang: 'en', topic: 'tech', sort_by: 'relevancy', page: '1'},
         headers: {
-            'x-api-key': 'QEklNgSS354Q1LSng5uRRRJrs6yIwwpVt6HFiK7ZqZc'
+            'x-api-key': 'TNqA3n-oLm1zZBdNyUf3YkxwEchqXaB5y4ZjHvqFKOw'
         }
     };
         

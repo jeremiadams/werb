@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import {Link, Routes, Route} from 'react-router-dom'
 import './App.css';
 import axios from 'axios'
 import picData from './picData'
@@ -11,17 +12,22 @@ import CryptoPriceCard from './CryptoPriceCard';
 
 function App() {
 
-  const [date, setDate] = React.useState({})
-  const [news, setNews] = React.useState([])
-  const [popularNews, setPopularNews] = React.useState([])
-  const [coins, setCoins] = React.useState([])
-  const [boxShadow, setBoxShadow] = React.useState(false)
+  const [date, setDate] = useState({})
+  const [news, setNews] = useState([])
+  const [popularNews, setPopularNews] = useState([])
+  const [coins, setCoins] = useState([])
+  const [boxShadow, setBoxShadow] = useState(false)
 
+  const [bookmarkedNews, setBookmarkedNews] = useState(
+    JSON.parse(localStorage.getItem('bookmarkedNews')) || []
+  )
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get('/news').then((response) => {
 
-      const shuffledArticles = response.data.articles.map(value => ({ value, sort: Math.random() }))
+      const updatedArticles = response.data.articles.map(article => ({...article, isFavorite: false}))
+
+      const shuffledArticles = updatedArticles.map(value => ({ value, sort: Math.random() }))
                                                      .sort((a, b) => a.sort - b.sort)
                                                      .map(({ value }) => value)
       setNews(shuffledArticles)
@@ -32,7 +38,7 @@ function App() {
 
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     axios.get('/popular').then((response) => {
       setPopularNews(response.data.articles)
     }).catch(error => {
@@ -41,7 +47,7 @@ function App() {
   }, [])
 
 
-  React.useEffect(() => {
+  useEffect(() => {
       
     axios.get('/coins').then((response) => {
       setCoins(response.data.data.coins)
@@ -52,20 +58,10 @@ function App() {
     
   }, [])
 
-//   React.useEffect(() => {
-      
-//     axios.get('/test').then((response) => {
-//       setTest(response.data.articles)
-//     }).catch(error => {
-//       console.log(error)
-//     })
-
-
-// }, [])
 
 
 
-  React.useEffect(function() {
+  useEffect(function() {
     setInterval(() => {
 
       let myDate = new Date()
@@ -93,7 +89,7 @@ function App() {
   }, []);
   
 
-  React.useEffect(function() {
+  useEffect(function() {
     const onScroll = () => {
       setBoxShadow(true)
     }
@@ -101,6 +97,44 @@ function App() {
 
     // return window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('bookmarkedNews', JSON.stringify(bookmarkedNews))
+  }, [bookmarkedNews])
+
+
+  function toggleBookmark(id) {
+   const updatedNewsArr = news.map(news => {
+     //loop over news array and change the item with incoming id's isfav property to the opposite
+     //loop over bookmarks and get the index of the id.
+     //if that item is in the bookmark remove it else place it
+
+      if (news._id === id) {
+          const ind = bookmarkedNews.findIndex(item => item._id === id)
+          const updatedArr = [...bookmarkedNews]
+          if (ind === -1) {
+              updatedArr.push({
+                  ...news,
+                  isFavorite: true
+              })
+              setBookmarkedNews(updatedArr)
+          } else if (ind >= 0) {
+              updatedArr.splice(ind, 1)
+              setBookmarkedNews(updatedArr)
+          }
+
+          return {
+            ...news,
+            isFavorite: !news.isFavorite
+          }
+      } else return news
+    })
+
+    setNews(updatedNewsArr)
+  }
+
+
+
 
   const navbarStyles = boxShadow ? {
     backgroundColor: '#13141c' ,
@@ -129,6 +163,8 @@ function App() {
                         url={news?.link}
                         img={news?.media}
                         logo={picData[i].logo}
+                        isBookmarked={news?.isFavorite}
+                        bookmark={toggleBookmark}
                      />
         } 
         return null
@@ -136,6 +172,30 @@ function App() {
       }    
             
   )
+
+
+  const bookmarkedElems = bookmarkedNews.map(news => 
+    {
+
+      for (let i = 0; i < picData.length; i++) {
+        if (news.clean_url === picData[i].name)
+            return <NewsCard 
+                      id={news?._id}
+                      key={news?._id}
+                      name={news?.clean_url}
+                      title={news?.title}
+                      url={news?.link}
+                      img={news?.media}
+                      logo={picData[i].logo}
+                      isBookmarked={news?.isFavorite}
+                      bookmark={toggleBookmark}
+                   />
+      } 
+      return null
+    
+    }    
+          
+)
 
 
   const cryptoCardElements = coins.map(coin =>
@@ -159,80 +219,122 @@ function App() {
     <div className="app">
         <div className="navbar" style={navbarStyles}><Navbar date={date} /></div>
 
+        <Link to="/bookmarks">
+          <div className="bookmark">
+              {bookmarkedNews.length > 0 ? 
+              <svg id="bookmark-svg" className="newscard__bottom-bookmark" width="23" height="33" viewBox="0 0 23 33" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" fill="#ffc300" />
+              </svg> :
+              <svg id="bookmark-svg" className="newscard__bottom-bookmark" width="23" height="33" viewBox="0 0 23 33" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M0.972664 0H21.4012C21.9377 0 22.3741 0.53545 22.3741 1.19389L22.3739 32.9999L12.7514 23.8721C11.8741 23.0396 10.4836 23.055 9.58591 23.9066L0 33V1.19396C0 0.535528 0.4363 -0.000299126 0.972664 0Z" fill="#908F94" />
+              </svg>}
+          </div>
+        </Link>
+
+        <Routes>
+            <Route  
+                path="/" 
+                element={
+                    <>
+                       
+                       <div className="scroll-btn" style={icoStyles}>
+                            <a className="scroll-link" href="#main__bottom">
+                              <div className="ico-container">
+                                <div className="chevron-container">
+                                  <div className="chevron"></div>
+                                  <div className="chevron"></div>
+                                  <div className="chevron"></div>
+                                </div>
+                              </div>
+                            </a>
+                        </div>
+                        
+                        <main className="main">
+
+                            <section className="main__top">
+
+                                <div className="main__top-left">
+
+                                    <PopularNews  
+                                      id={popularNews[3]?._id}
+                                      key={popularNews[3]?._id}
+                                      name={popularNews[3]?.clean_url}
+                                      title={popularNews[3]?.title}
+                                      url={popularNews[3]?.link}
+                                      img={popularNews[3]?.media}
+                                    />
+
+                                </div>
+
+                                <div className="main__top-right">
+
+                                  <div className="main__top-right-crypto">
+                                    {cryptoCardElements}
+
+                                  </div>
+                                  
+                                  <div className="main__top-right-popular">
+                                      <PopularNews  
+                                        id={popularNews[8]?._id}
+                                        key={popularNews[8]?._id}
+                                        name={popularNews[8]?.clean_url}
+                                        title={popularNews[8]?.title}
+                                        url={popularNews[8]?.link}
+                                        img={popularNews[8]?.media}
+                                      />
+
+                                      <PopularNews  
+                                        id={popularNews[6]?._id}
+                                        key={popularNews[6]?._id}
+                                        name={popularNews[6]?.clean_url}
+                                        title={popularNews[6]?.title}
+                                        url={popularNews[6]?.link}
+                                        img={popularNews[6]?.media}
+                                      /> 
+                                    
+                                  </div>
+
+                                </div>
+
+                          </section>
+
+                          <section id="main__bottom" className="main__bottom">
+
+                              <h2 className="main__bottom-heading">Latest News</h2>
+
+                              {newsCardElements}
+                              
+
+                          </section>
+
+                        </main>
+
+                    </>
+                }
+              />
+
+              <Route  
+                    path="/bookmarks" 
+                    element={
+                        <>
+                            <main className="main">
+                              <section id="main__bottom" className="main__bottom main__bookmarks">
+
+                              <h2 className="main__bottom-heading">Bookmarks</h2>
+
+                              {bookmarkedNews.length > 0 ? bookmarkedElems : 
+                                <p className="empty">You currently have no bookmarks!</p>
+                              }
 
 
+                              </section>
+                            </main>
+                        </>
+                    }
+              />
+        </Routes>
 
-        <div className="scroll-btn" style={icoStyles}>
-            <a className="scroll-link" href="#main__bottom">
-              <div className="ico-container">
-                <div className="chevron-container">
-                  <div className="chevron"></div>
-                  <div className="chevron"></div>
-                  <div className="chevron"></div>
-                </div>
-              </div>
-            </a>
-        </div>
         
-        <main className="main">
-
-            <section className="main__top">
-
-                <div className="main__top-left">
-
-                    <PopularNews  
-                      id={popularNews[4]?._id}
-                      key={popularNews[4]?._id}
-                      name={popularNews[4]?.clean_url}
-                      title={popularNews[4]?.title}
-                      url={popularNews[4]?.link}
-                      img={popularNews[4]?.media}
-                    />
-
-                </div>
-
-                <div className="main__top-right">
-
-                  <div className="main__top-right-crypto">
-                    {cryptoCardElements}
-
-                  </div>
-                  
-                  <div className="main__top-right-popular">
-                      <PopularNews  
-                        id={popularNews[8]?._id}
-                        key={popularNews[8]?._id}
-                        name={popularNews[8]?.clean_url}
-                        title={popularNews[8]?.title}
-                        url={popularNews[8]?.link}
-                        img={popularNews[8]?.media}
-                      />
-
-                      <PopularNews  
-                        id={popularNews[6]?._id}
-                        key={popularNews[6]?._id}
-                        name={popularNews[6]?.clean_url}
-                        title={popularNews[6]?.title}
-                        url={popularNews[6]?.link}
-                        img={popularNews[6]?.media}
-                      /> 
-                    
-                  </div>
-
-                </div>
-
-          </section>
-
-          <section id="main__bottom" className="main__bottom">
-
-              <h2 className="main__bottom-heading">Latest News</h2>
-
-              {newsCardElements}
-              
-
-          </section>
-
-        </main>
         
     </div>
   )

@@ -17,7 +17,7 @@ export default function CryptoPriceCard(props) {
 
     return(
         <div className="crypto__card-box">
-            <a className="crypto__card-link" href={props.url}>
+            <a className="crypto__card-link" href={props.url} target="_blank">
                 <div className="crypto__card">
                     <div className="crypto__card-left">
                         <div className="crypto__card-logo-box">

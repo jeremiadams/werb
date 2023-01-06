@@ -154,13 +154,12 @@
 .newscard__bookmark-btn svg {
     width: 17px;
     height: 17px;
-    fill: #908F94;
 }
 
 .newscard__bookmark-btn:hover {
     background-color: transparent
 }
 
-#newscard__share-btn:hover #bookmark-svg {
+/* #newscard__share-btn:hover #bookmark-svg {
     fill: #ffc300;
-}
+} */
