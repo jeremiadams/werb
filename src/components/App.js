@@ -23,39 +23,46 @@ function App() {
   )
 
   useEffect(() => {
-    axios.get('/news').then((response) => {
+    const options = {
+      methos: 'GET',
+      url: '/.netlify/functions/getNewsData'
+    }
 
+    axios.request(options).then((response) => {
       const updatedArticles = response.data.articles.map(article => ({...article, isFavorite: false}))
 
       const shuffledArticles = updatedArticles.map(value => ({ value, sort: Math.random() }))
                                                      .sort((a, b) => a.sort - b.sort)
                                                      .map(({ value }) => value)
       setNews(shuffledArticles)
-    }).catch(error => {
-      console.log(error)
     })
+
   }, [])
 
 
 
   useEffect(() => {
-    axios.get('/popular').then((response) => {
+    const options = {
+      methos: 'GET',
+      url: '/.netlify/functions/getPopularNewsData'
+    }
+
+    axios.request(options).then((response) => {
       setPopularNews(response.data.articles)
-    }).catch(error => {
-      console.log(error)
     })
   }, [])
 
 
   useEffect(() => {
-      
-    axios.get('/coins').then((response) => {
+    const options = {
+      methos: 'GET',
+      url: '/.netlify/functions/getCoinsData'
+    }
+
+    axios.request(options).then((response) => {
       setCoins(response.data.data.coins)
-    }).catch(error => {
-      console.log(error)
     })
       
-    
   }, [])
 
 
