@@ -9,6 +9,7 @@ import Navbar from './Navbar'
 import NewsCard from './NewsCard'
 import PopularNews from './PopularNews'
 import CryptoPriceCard from './CryptoPriceCard';
+import Privacy from './Privacy'
 
 function App() {
 
@@ -337,6 +338,13 @@ function App() {
                               </section>
                             </main>
                         </>
+                    }
+              />
+
+              <Route  
+                    path="/privacy" 
+                    element={
+                        <Privacy />
                     }
               />
         </Routes>

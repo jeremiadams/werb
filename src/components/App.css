@@ -322,3 +322,9 @@ body {
       opacity: 1;
     }
   }
+
+  .privacy {
+    margin: 0 70px;
+    padding-top: 120px;
+    line-height: 2;
+  }
