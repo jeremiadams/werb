@@ -8,6 +8,7 @@ exports.handler = async function(event, context) {
           url: 'https://api.newscatcherapi.com/v2/search?q=blockchain&lang=en&sort_by=relevancy&page=1',
           headers: {
               'x-api-key': process.env.REACT_APP_POPULAR_NEWS_API_KEY
+              
           }
         }
         
