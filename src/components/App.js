@@ -30,7 +30,18 @@ function App() {
     }
 
     axios.request(options).then((response) => {
-      const updatedArticles = response.data.articles.map(article => ({...article, isFavorite: false}))
+      let updatedArticles = response.data.articles.map(article => ({...article, isFavorite: false}))
+      if (bookmarkedNews.length > 0) {
+        updatedArticles = updatedArticles.map(article => {
+          return bookmarkedNews.map(item => {
+            if (article._id === item._id) {
+              return {...article, isFavorite: true}
+            } else {
+              return article
+            }
+          })
+        })
+      }
 
       const shuffledArticles = updatedArticles.map(value => ({ value, sort: Math.random() }))
                                                      .sort((a, b) => a.sort - b.sort)
