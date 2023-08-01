@@ -49,6 +49,7 @@ function App() {
       setNews(shuffledArticles)
     })
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
