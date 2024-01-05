@@ -4,8 +4,8 @@ import SourceLogo from '../images/werb-dark.png'
 import ArtLogo from '../images/werb-dark-logo.png'
 
 export default function NewsCard (props) {
-    const imgFile = props.img.split('.')
-    const fileExtension = imgFile[imgFile.length - 1].toLowerCase()
+    const imgFile = props.img && props.img.split('.')
+    const fileExtension = imgFile && imgFile[imgFile.length - 1].toLowerCase()
 
     return (
         <div className="newscard__box">
