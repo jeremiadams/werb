@@ -10,44 +10,85 @@ import NewsCard from './NewsCard'
 import PopularNews from './PopularNews'
 import CryptoPriceCard from './CryptoPriceCard';
 import Privacy from './Privacy'
+import Loading from './Loading';
 
 function App() {
 
-  const [date, setDate] = useState({})
+
+
   const [news, setNews] = useState([])
   const [popularNews, setPopularNews] = useState([])
   const [coins, setCoins] = useState([])
   const [boxShadow, setBoxShadow] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const [bookmarkedNews, setBookmarkedNews] = useState(
     JSON.parse(localStorage.getItem('bookmarkedNews')) || []
   )
 
+
+  async function getFavicon(domain) {
+    const options = {
+        method: 'GET',
+        url: 'https://faviconfinder.p.rapidapi.com/faviconurl/',
+        params: {
+          url: `https://${domain}`
+        },
+        headers: {
+          'X-RapidAPI-Key': process.env.REACT_APP_FAVICON_API_KEY,
+          'X-RapidAPI-Host': 'faviconfinder.p.rapidapi.com'
+        }
+    }
+      
+    try {
+      const response = await axios.request(options);
+      return response?.data.favicon_url;
+    } catch (error) {
+      return null;
+    }
+  }
+
+
+  
   useEffect(() => {
     const options = {
       methos: 'GET',
       url: '/.netlify/functions/getNewsData'
     }
 
-    axios.request(options).then((response) => {
-      let updatedArticles = response.data.articles.map(article => ({...article, isFavorite: false}))
-      if (bookmarkedNews.length > 0) {
-        updatedArticles = updatedArticles.map(article => {
-          return bookmarkedNews.map(item => {
-            if (article._id === item._id) {
-              return {...article, isFavorite: true}
-            } else {
-              return article
-            }
-          })
-        })
-      }
+    setLoading(true)
 
-      const shuffledArticles = updatedArticles.map(value => ({ value, sort: Math.random() }))
-                                                     .sort((a, b) => a.sort - b.sort)
-                                                     .map(({ value }) => value)
-      setNews(shuffledArticles)
+    axios.request(options).then((response) => {
+
+      Promise.all(
+        response.data.data.map(async (article) => {
+          return {...article, isFavorite: false, logo: await getFavicon(article.source)}
+        })
+      ).then((values) => {
+
+        const newArr = [...bookmarkedNews]
+      
+        for (let i = 0; i < values.length; i++) {
+          let ind = newArr.findIndex(item => item.uuid === values[i]?.uuid)
+          if (ind === -1) {
+            newArr.push(values[i])
+          } else {
+            continue
+          }
+
+        }
+
+        const shuffledArticles = newArr.map(value => ({ value, sort: Math.random() }))
+                                                      .sort((a, b) => a.sort - b.sort)
+                                                      .map(({ value }) => value)
+        setNews(shuffledArticles)
+        setLoading(false)
+      })
     })
+    .catch((err) => {
+      console.log("ERROR: ====", err)
+    })
+          
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -61,7 +102,10 @@ function App() {
     }
 
     axios.request(options).then((response) => {
-      setPopularNews(response.data.articles)
+      setPopularNews(response.data.data)
+    })
+    .catch((err) => {
+      console.log("ERROR: ====", err)
     })
   }, [])
 
@@ -75,38 +119,12 @@ function App() {
     axios.request(options).then((response) => {
       setCoins(response.data.data.coins)
     })
+    .catch((err) => {
+      console.log("ERROR: ====", err)
+    })
       
   }, [])
 
-
-
-
-  useEffect(function() {
-    setInterval(() => {
-
-      let myDate = new Date()
-
-      const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-      const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-      var hours = myDate.getHours()
-      var minutes = myDate.getMinutes()
-      var ampm = hours >= 12 ? 'am' : 'pm'
-      hours = hours % 12
-      hours = hours ? hours : 12
-      minutes = minutes < 10 ? '0'+minutes : minutes
-
-
-      setDate({
-        year: myDate.getFullYear(),
-        month: month[myDate.getMonth()],
-        day: myDate.getDate(),
-        dayOfWeek: dayOfWeek[myDate.getDay()],
-        hours: hours,
-        minutes: minutes,
-        timeOfDay: ampm
-      })
-    }, 1000);
-  }, []);
   
 
   useEffect(function() {
@@ -129,8 +147,8 @@ function App() {
      //loop over bookmarks and get the index of the id.
      //if that item is in the bookmark remove it else place it
 
-      if (news._id === id) {
-          const ind = bookmarkedNews.findIndex(item => item._id === id)
+      if (news.uuid === id) {
+          const ind = bookmarkedNews.findIndex(item => item.uuid === id)
           const updatedArr = [...bookmarkedNews]
           if (ind === -1) {
               updatedArr.push({
@@ -142,12 +160,13 @@ function App() {
               updatedArr.splice(ind, 1)
               setBookmarkedNews(updatedArr)
           }
-
+          
           return {
             ...news,
             isFavorite: !news.isFavorite
           }
       } else return news
+
     })
 
     setNews(updatedNewsArr)
@@ -171,25 +190,21 @@ function App() {
 
 
   const newsCardElements = news.map(news => 
-      {
-  
-        for (let i = 0; i < picData.length; i++) {
-          if (news.clean_url === picData[i].name)
-              return <NewsCard 
-                        id={news?._id}
-                        key={news?._id}
-                        name={news?.clean_url}
-                        title={news?.title}
-                        url={news?.link}
-                        img={news?.media}
-                        logo={picData[i].logo}
-                        isBookmarked={news?.isFavorite}
-                        bookmark={toggleBookmark}
-                     />
-        } 
-        return null
+     
+          <NewsCard 
+                id={news?.uuid}
+                key={news?.uuid}
+                name={news?.url}
+                title={news?.title}
+                url={news?.url}
+                img={news?.image_url}
+                logo={news?.logo}
+                isBookmarked={news?.isFavorite}
+                bookmark={toggleBookmark}
+              />
+
       
-      }    
+     
             
   )
 
@@ -197,21 +212,17 @@ function App() {
   const bookmarkedElems = bookmarkedNews.map(news => 
     {
 
-      for (let i = 0; i < picData.length; i++) {
-        if (news.clean_url === picData[i].name)
-            return <NewsCard 
-                      id={news?._id}
-                      key={news?._id}
-                      name={news?.clean_url}
+      return <NewsCard 
+                      id={news?.uuid}
+                      key={news?.uuid}
+                      name={news?.url}
                       title={news?.title}
-                      url={news?.link}
-                      img={news?.media}
-                      logo={picData[i].logo}
+                      url={news?.url}
+                      img={news?.image_url}
+                      logo={news?.logo}
                       isBookmarked={news?.isFavorite}
                       bookmark={toggleBookmark}
                    />
-      } 
-      return null
     
     }    
           
@@ -237,7 +248,7 @@ function App() {
 
   return (
     <div className="app">
-        <div className="navbar" style={navbarStyles}><Navbar date={date} /></div>
+        <div className="navbar" style={navbarStyles}><Navbar /></div>
 
         <Link to="/bookmarks">
           <div className="bookmark">
@@ -275,14 +286,15 @@ function App() {
 
                                 <div className="main__top-left">
 
-                                    <PopularNews  
-                                      id={popularNews[3]?._id}
-                                      key={popularNews[3]?._id}
-                                      name={popularNews[3]?.clean_url}
-                                      title={popularNews[3]?.title}
-                                      url={popularNews[3]?.link}
-                                      img={popularNews[3]?.media}
-                                    />
+                                    
+                                      <PopularNews  
+                                        id={popularNews[0]?.uuid}
+                                        key={popularNews[0]?.uuid}
+                                        source={popularNews[0]?.source}
+                                        title={popularNews[0]?.title}
+                                        url={popularNews[0]?.url}
+                                        img={popularNews[0]?.image_url}
+                                      />
 
                                 </div>
 
@@ -294,24 +306,26 @@ function App() {
                                   </div>
                                   
                                   <div className="main__top-right-popular">
-                                      <PopularNews  
-                                        id={popularNews[8]?._id}
-                                        key={popularNews[8]?._id}
-                                        name={popularNews[8]?.clean_url}
-                                        title={popularNews[8]?.title}
-                                        url={popularNews[8]?.link}
-                                        img={popularNews[8]?.media}
-                                      />
+                                      
+                                        <PopularNews  
+                                          id={popularNews[1]?.uuid}
+                                          key={popularNews[1]?.uuid}
+                                          source={popularNews[1]?.source}
+                                          title={popularNews[1]?.title}
+                                          url={popularNews[1]?.url}
+                                          img={popularNews[1]?.image_url}
+                                        />
+                                      
 
-                                      <PopularNews  
-                                        id={popularNews[6]?._id}
-                                        key={popularNews[6]?._id}
-                                        name={popularNews[6]?.clean_url}
-                                        title={popularNews[6]?.title}
-                                        url={popularNews[6]?.link}
-                                        img={popularNews[6]?.media}
-                                      /> 
-                                    
+                                      
+                                        <PopularNews  
+                                          id={popularNews[2]?.uuid}
+                                          key={popularNews[2]?.uuid}
+                                          source={popularNews[2]?.source}
+                                          title={popularNews[2]?.title}
+                                          url={popularNews[2]?.url}
+                                          img={popularNews[2]?.image_url}
+                                        /> 
                                   </div>
 
                                 </div>
@@ -321,6 +335,8 @@ function App() {
                           <section id="main__bottom" className="main__bottom">
 
                               <h2 className="main__bottom-heading">Latest News</h2>
+
+                              {loading && <Loading />}
 
                               {newsCardElements}
                               

@@ -5,11 +5,7 @@ exports.handler = async function(event, context) {
     try {
         let options = {
           method: 'GET',
-          url: 'https://api.newscatcherapi.com/v2/search?q=blockchain&lang=en&sort_by=relevancy&page=1',
-          headers: {
-              'x-api-key': process.env.REACT_APP_POPULAR_NEWS_API_KEY
-              
-          }
+          url: `https://api.thenewsapi.com/v1/news/all?categories=general&api_token=${process.env.REACT_APP_NEWS_API_KEY}&language=en`,
         }
         
 

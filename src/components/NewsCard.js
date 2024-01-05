@@ -1,16 +1,24 @@
 import React from 'react'
 import './NewsCard.css'
+import SourceLogo from '../images/werb-dark.png'
+import ArtLogo from '../images/werb-dark-logo.png'
 
 export default function NewsCard (props) {
+    const imgFile = props.img.split('.')
+    const fileExtension = imgFile[imgFile.length - 1].toLowerCase()
 
     return (
         <div className="newscard__box">
             <a className="newscard__link" href={props.url} target="_blank" rel="noreferrer">
                 <div className="newscard">
-                    <img src={props.img} alt="News" className="newscard__image"/>
+                    {
+                        fileExtension === 'webp' ? 
+                        <img src={SourceLogo} alt="News article" className="newscard__image"/> :
+                        <img src={props.img} alt="News article" className="newscard__image"/>
+                    }
                 </div>
                 <div className="newscard__info">
-                    <div className="newscard__logo-box"><img src={props.logo} alt="News Agency Logo" className="newscard__logo"/></div>
+                    <div className="newscard__logo-box"><img src={props.logo ? props.logo : ArtLogo} alt="Article Source Logo" className="newscard__logo"/></div>
                     <h3 className="newscard__title">{props.title}</h3>
                 </div>
             </a>
